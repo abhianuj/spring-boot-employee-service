@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.3.2.RELEASE</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>spring-hana-cloud-foundry-ps</groupId>
+	<artifactId>spring-hana-cloud-foundry-ps</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>spring-hana-cloud-foundry-ps</name>
+	<description>Sample Spring Boot application to use SAP HANA Service</description>
+
+	<properties>
+		<java.version>1.8</java.version>
+		<sap.cloud.sdk.version>3.54.23</sap.cloud.sdk.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>ch.qos.logback</groupId>
+					<artifactId>logback-classic</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-tomcat</artifactId> 
+			<scope>provided</scope> </dependency> -->
+		<!-- https://mvnrepository.com/artifact/com.sap.cloud/neo-java-web-sdk -->
+		<dependency>
+			<groupId>com.sap.cloud</groupId>
+			<artifactId>neo-java-web-sdk</artifactId>
+			<version>3.54.23</version>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-cloudfoundry-connector</artifactId>
+			<version>1.2.2.RELEASE</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.sap.hana.cloud</groupId>
+			<artifactId>spring-cloud-cloudfoundry-hana-service-connector</artifactId>
+			<version>1.0.4.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-spring-service-connector</artifactId>
+			<version>1.2.2.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sap.cloud.db.jdbc</groupId>
+			<artifactId>ngdbc</artifactId>
+			<version>2.3.55</version>
+		</dependency>
+		<dependency>
+			<groupId>io.pivotal.cfenv</groupId>
+			<artifactId>java-cfenv-boot</artifactId>
+			<version>2.1.0.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<scope>provided</scope>
+		</dependency>		
+		<dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>local</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<activatedProperties>local</activatedProperties>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>com.h2database</groupId>
+					<artifactId>h2</artifactId>
+					<scope>runtime</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+
+		<profile>
+			<id>cf</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<activatedProperties>cf</activatedProperties>
+			</properties>
+
+		</profile>
+	</profiles>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

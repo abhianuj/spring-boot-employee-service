@@ -1,0 +1,7 @@
+applications:
+- name: spring-hana-cloud-foundry-ps
+  path: target/spring-hana-cloud-foundry-ps-0.0.1-SNAPSHOT.war
+  buildpack: java_buildpack
+  memory: 1024M
+  services:
+    - hana_migration
